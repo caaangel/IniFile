@@ -6,7 +6,11 @@
 // Bool read/write is compatible with delphi
 // DateTime read/write is NOT compatible with delphi
 //
-// Created June 5th, 2013
+// Created August 5th, 2013
+//
+// Updated August 7th, 2013
+// * Fixed creation date
+// * Added Encoding to File read/write
 //
 using System;
 using System.Collections.Generic;
@@ -76,8 +80,8 @@ namespace IniFiles
             {
                 return;
             }
-            
-            string[] lines = File.ReadAllLines(_iniFileFilename);
+
+            string[] lines = File.ReadAllLines(_iniFileFilename, Encoding.GetEncoding("iso-8859-1"));
             IniSection section = null;
             
             foreach (string line in lines)
@@ -116,7 +120,7 @@ namespace IniFiles
 
         private void _Save()
         {
-            TextWriter file = new StreamWriter(_iniFileFilename);
+            TextWriter file = new StreamWriter(_iniFileFilename, false, Encoding.GetEncoding("iso-8859-1"));
 
             foreach (var section in iniContent)
             {
